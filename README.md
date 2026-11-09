@@ -14,6 +14,7 @@
 - [Задание куратора](docs/assignment.md)
 - [Исходный файл задания без изменений](docs/sources/assignment-original.md)
 - [Согласованный технический план](PLAN.md)
+- [Структура проекта и работа с коммитами](docs/learning/00-project-structure.md)
 - [Первое объяснение: данные и проверка качества](docs/learning/01-data-and-evaluation.md)
 - [Второе объяснение: RMSRE и разбор кода](docs/learning/02-rmsre.md)
 - [Официальное техническое описание WUR](docs/sources/Autonomous_greenhouse_challenge_technical_document.pdf)
@@ -66,7 +67,17 @@ python -m unittest discover -s tests -v
 python examples/metric_demo.py
 ```
 
+Обе проверки можно выполнить одной командой: `python scripts/check_project.py`.
+
 Пример использует два искусственных растения и не требует скачивания данных.
 Ожидаемая RMSRE числа плодов — `0.790569`, общий score — `0.197642`.
 Подробный разбор: [RMSRE](docs/learning/02-rmsre.md).
 Сведения о выполненной проверке: [отчёт](reports/metric_validation.json).
+
+## Структура для дальнейшей работы
+
+`src/` содержит код, `tests/` — проверки, `docs/learning/` — объяснения.
+Для следующих шагов подготовлены `configs/`, `data/`, `notebooks/`, `splits/`,
+`reports/` и `checkpoints/`. Их назначение описано в README внутри каждой папки.
+Протокол записан в [configs/protocol.json](configs/protocol.json); само разбиение
+растений ещё не создано. Большие данные и веса моделей исключены из Git.

@@ -1,0 +1,27 @@
+{
+  "status": "planned_splits_not_created",
+  "seed": 42,
+  "targets": [
+    {"name": "height", "unit": "cm"},
+    {"name": "fw_plant", "unit": "g"},
+    {"name": "leaf_area", "unit": "cm2"},
+    {"name": "number_of_red_fruits", "unit": "count"}
+  ],
+  "data": {
+    "root": "data/raw/single_plant_cam",
+    "manifest": "data/processed/manifest.csv",
+    "dataset_doi": "10.4121/e1ee9de9-6ce9-4502-a37c-34b5b1372bed.v1"
+  },
+  "holdout": {
+    "fraction": 0.2,
+    "stratify_by": "variety",
+    "plant_ids_file": "splits/holdout.csv",
+    "evaluation": "once_after_model_selection"
+  },
+  "cross_validation": {
+    "n_splits": 5,
+    "shuffle": true,
+    "stratify_by": "variety",
+    "folds_file": "splits/cv_folds.csv"
+  }
+}

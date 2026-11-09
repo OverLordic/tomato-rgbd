@@ -1,6 +1,14 @@
 # Source data, archives, derived images and model weights stay outside Git.
-/data/
-/checkpoints/
+/data/**
+!/data/README.md
+!/data/raw/
+!/data/raw/.gitkeep
+!/data/interim/
+!/data/interim/.gitkeep
+!/data/processed/
+!/data/processed/.gitkeep
+/checkpoints/*
+!/checkpoints/README.md
 /artifacts/
 /outputs/
 *.zip
