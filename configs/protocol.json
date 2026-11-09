@@ -1,11 +1,23 @@
 {
-  "status": "planned_splits_not_created",
+  "status": "frozen_splits_created",
   "seed": 42,
   "targets": [
-    {"name": "height", "unit": "cm"},
-    {"name": "fw_plant", "unit": "g"},
-    {"name": "leaf_area", "unit": "cm2"},
-    {"name": "number_of_red_fruits", "unit": "count"}
+    {
+      "name": "height",
+      "unit": "cm"
+    },
+    {
+      "name": "fw_plant",
+      "unit": "g"
+    },
+    {
+      "name": "leaf_area",
+      "unit": "cm2"
+    },
+    {
+      "name": "number_of_red_fruits",
+      "unit": "count"
+    }
   ],
   "data": {
     "root": "data/raw/single_plant_cam",

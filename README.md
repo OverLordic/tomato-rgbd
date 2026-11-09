@@ -17,6 +17,7 @@
 - [Структура проекта и работа с коммитами](docs/learning/00-project-structure.md)
 - [Первое объяснение: данные и проверка качества](docs/learning/01-data-and-evaluation.md)
 - [Второе объяснение: RMSRE и разбор кода](docs/learning/02-rmsre.md)
+- [Третье объяснение: загрузка, таблица растений и holdout/CV](docs/learning/03-data-and-splits.md)
 - [Официальное техническое описание WUR](docs/sources/Autonomous_greenhouse_challenge_technical_document.pdf)
 - [Происхождение материалов](docs/sources/PROVENANCE.md)
 
@@ -50,10 +51,15 @@ CNN будем обучать в Google Colab или Kaggle; документа�
 ## Текущий статус
 
 - Официальные источники и формула оценки проверены.
-- Документация и конфигурация камеры извлечены из архива; изображения ещё не загружены.
+- Полный архив загружен и проверен по MD5 4TU; изображения распакованы с проверкой CRC.
 - Файл задания добавлен с сохранением исходника и отдельной версией для чтения на GitHub.
 - Реализована официальная RMSRE: 16 проверок пройдены, включая сравнение с расчётом из PDF.
-- Разбиение данных и обучение ещё не выполнены. Результатов качества моделей пока нет.
+- Составлена таблица 479 растений, проверены все 1916 PNG и целевые единицы.
+- Зафиксированы 383 development-растения, 96 holdout и пять фолдов CV, seed=42.
+- 40 автоматических проверок кода пройдены. Модели ещё не обучались, holdout не оценивался.
+
+Фактические результаты: [отчёт о подготовке](reports/data_preparation.md),
+[машинный аудит](reports/data_audit.json), [разбиения](splits/README.md).
 
 Подробные решения и ограничения фиксируются в [плане](PLAN.md).
 
@@ -74,10 +80,27 @@ python examples/metric_demo.py
 Подробный разбор: [RMSRE](docs/learning/02-rmsre.md).
 Сведения о выполненной проверке: [отчёт](reports/metric_validation.json).
 
+## Подготовка данных
+
+Проверенное окружение: Python 3.12; точные версии библиотек — в requirements-data.txt.
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements-data.txt
+python -m pip install --no-deps -e .
+python scripts/prepare_data.py --download
+```
+
+Скрипт сверяет архив с 4TU, распаковывает его, проверяет PNG и создаёт таблицу растений.
+Затем фиксирует ID holdout и фолдов CV; повторный запуск использует те же списки.
+Полная таблица и изображения остаются локально в data/. Подробности:
+[объяснение шага](docs/learning/03-data-and-splits.md).
+
 ## Структура для дальнейшей работы
 
 `src/` содержит код, `tests/` — проверки, `docs/learning/` — объяснения.
 Для следующих шагов подготовлены `configs/`, `data/`, `notebooks/`, `splits/`,
 `reports/` и `checkpoints/`. Их назначение описано в README внутри каждой папки.
-Протокол записан в [configs/protocol.json](configs/protocol.json); само разбиение
-растений ещё не создано. Большие данные и веса моделей исключены из Git.
+Протокол записан в [configs/protocol.json](configs/protocol.json), конкретные ID — в splits/.
+Большие данные и веса моделей исключены из Git.

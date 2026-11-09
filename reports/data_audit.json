@@ -1,0 +1,198 @@
+{
+  "status": "passed",
+  "archive": {
+    "bytes": 7456535483,
+    "md5": "81d46dddbddb6519736fedfa8d73f694",
+    "sha256": "cf27a2079c539f25155857cc5c9736aac35c0d6f6293456417dcbccc8e0f9617",
+    "url": "https://data.4tu.nl/file/e1ee9de9-6ce9-4502-a37c-34b5b1372bed/923e3ab0-011f-432c-9039-2151e2c4a6f9",
+    "publisher_md5_matched": true
+  },
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "Pillow": "13.0.0",
+    "scikit_learn": "1.9.1"
+  },
+  "n_plants": 479,
+  "n_images_decoded": 1916,
+  "source_subset_counts": {
+    "train": 268,
+    "test": 96,
+    "validation1": 39,
+    "validation2": 38,
+    "validation3": 38
+  },
+  "unique_plant_ids": true,
+  "unique_original_acquisitions": true,
+  "exact_duplicate_rgb_groups": [],
+  "all_image_files_match_labels": true,
+  "calibration_sha256": "f0fc5bfd45259a0e9b39fe737b0d676cc8b10aa5b476c2ff8a1e203289bf5171",
+  "color_size": [
+    3840,
+    2160
+  ],
+  "rgb_modes": {
+    "RGB": 479
+  },
+  "depth_modes": {
+    "I;16": 479
+  },
+  "depth_dtype": {
+    "uint16": 479
+  },
+  "ir_sizes": {
+    "1280x720": 479
+  },
+  "depth_units": {
+    "meters_per_raw_unit": 0.001,
+    "basis": "WUR point-cloud-demo fallback; no DepthScale key in calibration",
+    "zero": "invalid measurement, excluded from depth quantiles",
+    "physical_scale_check": "Plausibility only; no independent ruler calibration yet"
+  },
+  "splits": {
+    "settings": {
+      "seed": 42,
+      "holdout_fraction": 0.2,
+      "n_splits": 5,
+      "manifest_sha256": "462ffad37948ade25bbb0131034e36e831bef277934d70efe48949f23abe102f",
+      "images_fingerprint_sha256": "867e6de9c95acc1fddefd80d33b5219fa153a1e9e89fbad3f9a93b9eae1ff748"
+    },
+    "algorithm": "sorted IDs -> train_test_split(stratify=variety) -> sorted dev IDs -> StratifiedKFold",
+    "versions": {
+      "python": "3.12.14",
+      "numpy": "2.3.5",
+      "scikit_learn": "1.9.1"
+    },
+    "counts": {
+      "all": 479,
+      "development": 383,
+      "holdout": 96
+    },
+    "variety_counts": {
+      "all": {
+        "A": 48,
+        "B": 144,
+        "C": 143,
+        "D": 144
+      },
+      "development": {
+        "A": 39,
+        "B": 115,
+        "C": 114,
+        "D": 115
+      },
+      "holdout": {
+        "A": 9,
+        "B": 29,
+        "C": 29,
+        "D": 29
+      }
+    },
+    "validation_folds": {
+      "0": {
+        "n": 77,
+        "varieties": {
+          "A": 8,
+          "B": 23,
+          "C": 23,
+          "D": 23
+        }
+      },
+      "1": {
+        "n": 77,
+        "varieties": {
+          "A": 8,
+          "B": 23,
+          "C": 23,
+          "D": 23
+        }
+      },
+      "2": {
+        "n": 77,
+        "varieties": {
+          "A": 8,
+          "B": 23,
+          "C": 23,
+          "D": 23
+        }
+      },
+      "3": {
+        "n": 76,
+        "varieties": {
+          "A": 8,
+          "B": 23,
+          "C": 22,
+          "D": 23
+        }
+      },
+      "4": {
+        "n": 76,
+        "varieties": {
+          "A": 7,
+          "B": 23,
+          "C": 23,
+          "D": 23
+        }
+      }
+    },
+    "split_files_sha256": {
+      "holdout.csv": "c3a04d5928c98d3f0f641cb995f248cf5561129f07af195ef946070d19e1cdc0",
+      "cv_folds.csv": "b25b4a5d801a45e0f40c74c49f70793ca5120ca27236fb676384c14ff21b9043"
+    },
+    "holdout_evaluations": 0,
+    "note": "Only integrity checks apply to all files; target distributions and visual analysis use development only."
+  },
+  "development_only": {
+    "n_plants": 383,
+    "variety_counts": {
+      "A": 39,
+      "B": 115,
+      "C": 114,
+      "D": 115
+    },
+    "targets": {
+      "height": {
+        "unit": "cm",
+        "observed": 382,
+        "missing": 1,
+        "min": 10.0,
+        "median": 31.0,
+        "max": 76.0
+      },
+      "fw_plant": {
+        "unit": "g",
+        "observed": 382,
+        "missing": 1,
+        "min": 9.63,
+        "median": 71.545,
+        "max": 1009.66
+      },
+      "leaf_area": {
+        "unit": "cm2",
+        "observed": 382,
+        "missing": 1,
+        "min": 55.288,
+        "median": 986.885,
+        "max": 4333.32
+      },
+      "number_of_red_fruits": {
+        "unit": "count",
+        "observed": 383,
+        "missing": 0,
+        "min": 0.0,
+        "median": 0.0,
+        "max": 124.0
+      }
+    },
+    "median_zero_depth_fraction": 0.062160132137345676,
+    "median_scene_depth_m": 1.582,
+    "note": "Depth statistics cover the full scene, not a plant mask; quantiles use stride 4."
+  },
+  "limitations": [
+    "Exact pixel duplicate check is not a near-duplicate detector",
+    "Matching shapes alone does not prove RGB-depth spatial alignment",
+    "Units of manually measured targets come from WUR documentation, not PNG pixels",
+    "No holdout target distributions, visual examples, training or model scores examined",
+    "Full-scene depth is not a validated camera-to-substrate reference; do not assume a constant 0.90 m"
+  ]
+}
