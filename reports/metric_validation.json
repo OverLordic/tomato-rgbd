@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-09",
+  "scope": "official RMSRE implementation on synthetic examples; no dataset or holdout used",
+  "python_version": "3.12.14",
+  "numpy_version": "2.3.5",
+  "test_command": "PYTHONPATH=src python -m unittest discover -s tests -v",
+  "test_runner": "unittest (Python standard library)",
+  "tests_run": 16,
+  "failures": 0,
+  "errors": 0,
+  "status": "passed",
+  "reference": "docs/sources/Autonomous_greenhouse_challenge_technical_document.pdf, section 4.1, page 7",
+  "fruit_example": {
+    "truth": [
+      0,
+      3
+    ],
+    "predictions": [
+      1,
+      5
+    ],
+    "rmsre": 0.7905694150420949,
+    "four_target_mean": 0.19764235376052372
+  },
+  "limitations": [
+    "Real images not downloaded",
+    "Dataset split not created",
+    "Model quality not evaluated",
+    "Editable pip installation not tested; package imported via PYTHONPATH"
+  ]
+}
