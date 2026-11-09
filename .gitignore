@@ -1,0 +1,29 @@
+# Source data, archives, derived images and model weights stay outside Git.
+/data/
+/checkpoints/
+/artifacts/
+/outputs/
+*.zip
+*.pcd
+*.ply
+*.pth
+*.pt
+*.ckpt
+
+# Local Python environment and caches.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Local credentials and machine settings.
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
