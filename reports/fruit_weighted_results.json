@@ -1,0 +1,54 @@
+{
+  "mse": {
+    "rmsre": 3.807116119367234,
+    "mae_all": 4.026976983843417,
+    "mae_zero": 2.0543449357535226,
+    "mae_positive": 8.298295964005007,
+    "mean_prediction_zero": 2.0543449357535226,
+    "n_zero": 262,
+    "n_positive": 121
+  },
+  "weighted": {
+    "rmsre": 0.7627778662968704,
+    "mae_all": 4.71684720115621,
+    "mae_zero": 0.20350475779168875,
+    "mae_positive": 14.489539103317409,
+    "mean_prediction_zero": 0.20350475779168875,
+    "n_zero": 262,
+    "n_positive": 121
+  },
+  "positive_only": {
+    "rmsre": 15.217270077503828,
+    "mae_all": 14.385065858003083,
+    "mae_zero": 17.5711767075467,
+    "mae_positive": 7.4862142664293,
+    "mean_prediction_zero": 17.5711767075467,
+    "n_zero": 262,
+    "n_positive": 121
+  },
+  "two_stage": {
+    "rmsre": 3.7382584697679184,
+    "mae_all": 3.784665210455413,
+    "mae_zero": 1.7278004774912783,
+    "mae_positive": 8.238372318195935,
+    "mean_prediction_zero": 1.7278004774912783,
+    "n_zero": 262,
+    "n_positive": 121
+  },
+  "weighted_plane": {
+    "rmsre": 0.8073949562373066,
+    "mae_all": 4.735241100805873,
+    "mae_zero": 0.22446896906609135,
+    "mae_positive": 14.502367534820936,
+    "mean_prediction_zero": 0.22446896906609135,
+    "n_zero": 262,
+    "n_positive": 121
+  },
+  "plane_diagnostics": {
+    "valid": 296,
+    "total": 383,
+    "median_inlier_fraction": 0.6880291545189504,
+    "median_residual_mm": 2.4640059730717256,
+    "note": "tray plane only; not calibrated substrate plane"
+  }
+}
