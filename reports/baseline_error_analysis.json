@@ -1,0 +1,131 @@
+{
+  "height": {
+    "worst": [
+      {
+        "plant_id": "B_c0db2442",
+        "variety": "B",
+        "truth": 10.0,
+        "prediction": 24.878642325315976,
+        "squared_relative_error": 1.8295371689643305
+      },
+      {
+        "plant_id": "B_417b35df",
+        "variety": "B",
+        "truth": 21.5,
+        "prediction": 46.81411827045004,
+        "squared_relative_error": 1.2657868322179406
+      },
+      {
+        "plant_id": "B_d1417db9",
+        "variety": "B",
+        "truth": 24.0,
+        "prediction": 45.27500551200287,
+        "squared_relative_error": 0.7242013752572041
+      }
+    ],
+    "variety_rmsre": {
+      "A": 0.10195805899516386,
+      "B": 0.27014085339748195,
+      "C": 0.12374019174649943,
+      "D": 0.14161405849520553
+    }
+  },
+  "fw_plant": {
+    "worst": [
+      {
+        "plant_id": "C_84683099",
+        "variety": "C",
+        "truth": 18.82,
+        "prediction": 157.23042708950155,
+        "squared_relative_error": 48.76748029719093
+      },
+      {
+        "plant_id": "C_ac56a2a1",
+        "variety": "C",
+        "truth": 14.4,
+        "prediction": 112.16695226172043,
+        "squared_relative_error": 40.30349533878192
+      },
+      {
+        "plant_id": "D_3f7b2395",
+        "variety": "D",
+        "truth": 52.99,
+        "prediction": 356.81148304185655,
+        "squared_relative_error": 31.667246576588198
+      }
+    ],
+    "variety_rmsre": {
+      "A": 0.8670962547607524,
+      "B": 0.9985337535355704,
+      "C": 1.5711174849426908,
+      "D": 1.0125169564225673
+    }
+  },
+  "leaf_area": {
+    "worst": [
+      {
+        "plant_id": "A_98ec0fae",
+        "variety": "A",
+        "truth": 55.288,
+        "prediction": 634.5601553203072,
+        "squared_relative_error": 105.90919591001757
+      },
+      {
+        "plant_id": "C_811e7940",
+        "variety": "C",
+        "truth": 199.1,
+        "prediction": 620.9226952059092,
+        "squared_relative_error": 4.4439146291616165
+      },
+      {
+        "plant_id": "B_417b35df",
+        "variety": "B",
+        "truth": 637.55,
+        "prediction": 1865.0108053809963,
+        "squared_relative_error": 3.695093636723516
+      }
+    ],
+    "variety_rmsre": {
+      "A": 1.668921982962702,
+      "B": 0.3811366543197621,
+      "C": 0.4263953648997527,
+      "D": 0.29163709172769137
+    }
+  },
+  "number_of_red_fruits": {
+    "worst": [
+      {
+        "plant_id": "B_8b40f43a",
+        "variety": "B",
+        "truth": 0.0,
+        "prediction": 25.209998065314746,
+        "squared_relative_error": 635.5440024531732
+      },
+      {
+        "plant_id": "D_4144ce28",
+        "variety": "D",
+        "truth": 0.0,
+        "prediction": 21.014236869953976,
+        "squared_relative_error": 441.59815122653305
+      },
+      {
+        "plant_id": "B_349fbd97",
+        "variety": "B",
+        "truth": 0.0,
+        "prediction": 20.570548873433864,
+        "squared_relative_error": 423.14748095433123
+      }
+    ],
+    "variety_rmsre": {
+      "A": 0.85014459710743,
+      "B": 3.591759019299196,
+      "C": 3.2558785494165456,
+      "D": 4.961588704831255
+    }
+  },
+  "fruits_zero": {
+    "count": 262,
+    "mean_prediction": 2.054344935753523,
+    "rmsre": 4.58825193437251
+  }
+}

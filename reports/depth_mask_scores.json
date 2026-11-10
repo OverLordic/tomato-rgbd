@@ -1,0 +1,47 @@
+{
+  "constant": {
+    "mean": 2.8166093898381837,
+    "per_target": {
+      "height": 0.33071772663933957,
+      "fw_plant": 4.783955430380031,
+      "leaf_area": 1.7354078540627604,
+      "number_of_red_fruits": 4.416356548270603
+    },
+    "n_valid": {
+      "height": 382,
+      "fw_plant": 382,
+      "leaf_area": 382,
+      "number_of_red_fruits": 383
+    }
+  },
+  "ridge": {
+    "mean": 1.628714706555292,
+    "per_target": {
+      "height": 0.19267239297489236,
+      "fw_plant": 1.8354865848182462,
+      "leaf_area": 0.8355609255524427,
+      "number_of_red_fruits": 3.6511389228755875
+    },
+    "n_valid": {
+      "height": 382,
+      "fw_plant": 382,
+      "leaf_area": 382,
+      "number_of_red_fruits": 383
+    }
+  },
+  "boosting": {
+    "mean": 1.4618943308754848,
+    "per_target": {
+      "height": 0.17840735844569724,
+      "fw_plant": 1.2882682265271794,
+      "leaf_area": 0.7324091647155806,
+      "number_of_red_fruits": 3.648492573813482
+    },
+    "n_valid": {
+      "height": 382,
+      "fw_plant": 382,
+      "leaf_area": 382,
+      "number_of_red_fruits": 383
+    }
+  }
+}
