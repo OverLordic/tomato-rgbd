@@ -1,0 +1,27 @@
+{
+  "scope": "development only; 5-fold OOF; holdout untouched",
+  "device": "mps",
+  "torch": "2.15.0",
+  "torchvision": "0.29.2",
+  "image_size": 320,
+  "depth_scaling": "raw millimetres / 2000; zero invalid/padding; nearest resize",
+  "epochs_max": 20,
+  "patience": 5,
+  "batch_size": 16,
+  "loss": "masked per-target log1p MSE",
+  "weights": "ResNet18 IMAGENET1K_V1",
+  "mean": 0.3046112641537177,
+  "per_target": {
+    "height": 0.17638273495042606,
+    "fw_plant": 0.3060277587098495,
+    "leaf_area": 0.4701245893610505,
+    "number_of_red_fruits": 0.26590997359354474
+  },
+  "n_valid": {
+    "height": 382,
+    "fw_plant": 382,
+    "leaf_area": 382,
+    "number_of_red_fruits": 383
+  },
+  "note": "checkpoint selected on validation RMSRE; optimistic CV selection possible"
+}
