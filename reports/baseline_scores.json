@@ -1,0 +1,69 @@
+{
+  "scope": "development only; fixed 5-fold OOF; holdout untouched",
+  "feature_columns": [
+    "green_fraction",
+    "green_bbox_width",
+    "green_bbox_height",
+    "green_hull_fraction",
+    "red_fraction_near_green",
+    "red_components",
+    "depth_valid_fraction",
+    "depth_q10_m",
+    "depth_q50_m",
+    "depth_q90_m",
+    "depth_iqr_m"
+  ],
+  "scores": {
+    "constant": {
+      "mean": 2.8166093898381837,
+      "per_target": {
+        "height": 0.33071772663933957,
+        "fw_plant": 4.783955430380031,
+        "leaf_area": 1.7354078540627604,
+        "number_of_red_fruits": 4.416356548270603
+      },
+      "n_valid": {
+        "height": 382,
+        "fw_plant": 382,
+        "leaf_area": 382,
+        "number_of_red_fruits": 383
+      }
+    },
+    "ridge": {
+      "mean": 1.6805306125394295,
+      "per_target": {
+        "height": 0.2273825280812317,
+        "fw_plant": 1.7409484604215835,
+        "leaf_area": 0.8044287491053216,
+        "number_of_red_fruits": 3.949362712549582
+      },
+      "n_valid": {
+        "height": 382,
+        "fw_plant": 382,
+        "leaf_area": 382,
+        "number_of_red_fruits": 383
+      }
+    },
+    "boosting": {
+      "mean": 1.4545665503618286,
+      "per_target": {
+        "height": 0.18288335093454236,
+        "fw_plant": 1.1898487033299028,
+        "leaf_area": 0.6384180278156348,
+        "number_of_red_fruits": 3.807116119367234
+      },
+      "n_valid": {
+        "height": 382,
+        "fw_plant": 382,
+        "leaf_area": 382,
+        "number_of_red_fruits": 383
+      }
+    }
+  },
+  "limitations": [
+    "Threshold masks are crude; red tray/person may contaminate",
+    "Depth quantiles are camera distances, not plant height",
+    "Mean constant is not optimized for RMSRE",
+    "Hyperparameters are initial fixed choices"
+  ]
+}
