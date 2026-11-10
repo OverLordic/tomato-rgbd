@@ -1,43 +1,42 @@
-"""Show the first saved development plant of each variety, never holdout examples."""
-
+"""Preview four development plants with OpenCV; holdout is excluded."""
 from pathlib import Path
 import sys
-
+import cv2
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / 'src'))
 from tomato_rgbd.data import load_development_manifest
 
 
 def main():
     rows = load_development_manifest(ROOT)
-    selected = [next(r for r in rows if r["variety"] == variety) for variety in "ABCD"]
-    tile = (400, 225)
-    canvas = Image.new("RGB", (1200, 1120), "white")
-    draw = ImageDraw.Draw(canvas)
-    font = ImageFont.load_default(size=18)
-    draw.text((12, 8), "Development only | RGB / Depth: blue=0.30 m, red=2.00 m / Valid depth", fill="black", font=font)
+    selected = [next(r for r in rows if r['variety'] == variety) for variety in 'ABCD']
+    canvas = np.full((1120, 1200, 3), 255, dtype=np.uint8)
+    cv2.putText(canvas, 'Development | RGB / depth: blue=0.30 m, red=2.00 m / validity',
+                (12, 25), cv2.FONT_HERSHEY_SIMPLEX, .55, (0, 0, 0), 1)
     for index, row in enumerate(selected):
-        with Image.open(ROOT / row["rgb_path"]) as image:
-            rgb = image.convert("RGB").resize(tile)
-        with Image.open(ROOT / row["depth_path"]) as image:
-            depth = np.asarray(image, dtype=np.float32)
+        rgb = cv2.imread(str(ROOT / row['rgb_path']), cv2.IMREAD_COLOR)
+        depth = cv2.imread(str(ROOT / row['depth_path']), cv2.IMREAD_UNCHANGED)
+        if rgb is None or depth is None:
+            raise ValueError(f"Cannot read {row['plant_id']}")
         valid = depth > 0
-        t = np.clip((depth - 300) / 1700, 0, 1)
-        colors = np.stack([t, 1 - np.abs(2 * t - 1), 1 - t], axis=-1)
+        t = np.clip((depth.astype(np.float32) - 300) / 1700, 0, 1)
+        colors = np.stack([1 - t, 1 - np.abs(2*t - 1), t], axis=-1)
         colors[~valid] = 0
-        colored = Image.fromarray((colors * 255).astype(np.uint8)).resize(tile, Image.Resampling.NEAREST)
-        mask = Image.fromarray((valid * 255).astype(np.uint8)).convert("RGB").resize(tile, Image.Resampling.NEAREST)
+        colored = (colors * 255).astype(np.uint8)
+        mask = cv2.cvtColor((valid * 255).astype(np.uint8), cv2.COLOR_GRAY2BGR)
         y = 55 + 265 * index
-        draw.text((12, y - 23), row["plant_id"] + " | white = valid; black = invalid", fill="black", font=font)
+        cv2.putText(canvas, row['plant_id'] + ' | white = valid', (12, y-8),
+                    cv2.FONT_HERSHEY_SIMPLEX, .5, (0, 0, 0), 1)
         for col, image in enumerate((rgb, colored, mask)):
-            canvas.paste(image, (400 * col, y))
-    output = ROOT / "reports/development_rgb_depth.png"
-    canvas.save(output)
+            interpolation = cv2.INTER_AREA if col == 0 else cv2.INTER_NEAREST
+            canvas[y:y+225, col*400:(col+1)*400] = cv2.resize(image, (400,225), interpolation=interpolation)
+    output = ROOT / 'reports/development_rgb_depth.png'
+    if not cv2.imwrite(str(output), canvas):
+        raise OSError(f'Cannot write {output}')
     print(output)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

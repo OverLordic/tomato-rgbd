@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 import numpy as np
-import PIL
+import cv2
 import sklearn
 
 from tomato_rgbd.data import (IMAGE_COLUMNS, MANIFEST_COLUMNS, UNITS, audit_images, build_manifest,
@@ -118,7 +118,7 @@ def main():
     report = {
         "status": "passed", "archive": receipt,
         "versions": {"python": platform.python_version(), "numpy": np.__version__,
-                     "Pillow": PIL.__version__, "scikit_learn": sklearn.__version__},
+                     "OpenCV": cv2.__version__, "scikit_learn": sklearn.__version__},
         "n_plants": len(rows), "n_images_decoded": len(rows) * 4,
         "source_subset_counts": dict(Counter(r["source_subset"] for r in rows)),
         "unique_plant_ids": True, "unique_original_acquisitions": True,

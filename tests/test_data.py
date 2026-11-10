@@ -7,7 +7,7 @@ import tempfile
 import unittest
 
 import numpy as np
-from PIL import Image
+import cv2
 
 from tomato_rgbd.data import (MANIFEST_COLUMNS, SUBSETS, audit_images, build_manifest,
                               load_development_manifest, read_csv, read_json, write_csv)
@@ -31,12 +31,12 @@ class DataTests(unittest.TestCase):
                 plant_id = f"{'AB'[offset]}_{n:08x}"
                 truth[plant_id] = {"height": 20., "fw_plant": 100., "leaf_area": 500., "number_of_red_fruits": 0.}
                 names[plant_id] = f"camir_27_2023_11_23_11_23_{n:02d}_nc6l{n}_rgb"
-                Image.fromarray(np.full((6, 8, 3), n, dtype=np.uint8)).save(folder / "rgb" / f"{plant_id}.png")
+                cv2.imwrite(str(folder / "rgb" / f"{plant_id}.png"), np.full((6, 8, 3), n, dtype=np.uint8))
                 depth = np.full((6, 8), 650 + n, dtype=np.uint16)
                 depth[0, 0] = 0
-                Image.fromarray(depth).save(folder / "depth" / f"{plant_id}_depth.png")
+                cv2.imwrite(str(folder / "depth" / f"{plant_id}_depth.png"), depth)
                 for side in ("L", "R"):
-                    Image.fromarray(np.full((3, 4), n, dtype=np.uint8)).save(folder / "depth" / f"{plant_id}_ir{side}.png")
+                    cv2.imwrite(str(folder / "depth" / f"{plant_id}_ir{side}.png"), np.full((3, 4), n, dtype=np.uint8))
             (folder / f"ground_truth_{subset}.json").write_text(json.dumps(truth))
             (folder / f"anon_keys_{subset}.json").write_text(json.dumps(names))
 
@@ -57,7 +57,7 @@ class DataTests(unittest.TestCase):
             self.manifest()
 
     def test_orphan_image_is_detected(self):
-        Image.new("RGB", (8, 6)).save(self.dataset / "train/rgb/orphan.png")
+        cv2.imwrite(str(self.dataset / "train/rgb/orphan.png"), np.zeros((6, 8, 3), dtype=np.uint8))
         with self.assertRaisesRegex(ValueError, "Orphan RGB"):
             self.manifest()
 
@@ -103,7 +103,7 @@ class DataTests(unittest.TestCase):
 
     def test_wrong_depth_shape_is_rejected(self):
         rows = self.manifest()
-        Image.fromarray(np.zeros((2, 3), dtype=np.uint16)).save(self.root / rows[0]["depth_path"])
+        cv2.imwrite(str(self.root / rows[0]["depth_path"]), np.zeros((2, 3), dtype=np.uint16))
         with self.assertRaisesRegex(ValueError, "depth format"):
             audit_images(rows, self.root, self.calibration, progress=None)
 

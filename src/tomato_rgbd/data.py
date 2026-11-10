@@ -10,7 +10,8 @@ from pathlib import Path
 import re
 
 import numpy as np
-from PIL import Image
+import cv2
+import pandas as pd
 
 from .metrics import TARGET_NAMES
 
@@ -129,9 +130,16 @@ def _read_png(path: Path):
         header = stream.read(29)
     if header[:8] != b"\x89PNG\r\n\x1a\n" or len(header) != 29:
         raise ValueError(f"Invalid PNG header: {path.name}")
-    with Image.open(path) as image:
-        image.load()
-        return np.asarray(image), image.mode, int(header[24])
+    image = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
+    if image is None:
+        raise ValueError(f"Cannot decode PNG: {path.name}")
+    if image.ndim == 3:
+        image = cv2.cvtColor(image, cv2.COLOR_BGRA2RGBA if image.shape[2] == 4 else cv2.COLOR_BGR2RGB)
+        mode = "RGBA" if image.shape[2] == 4 else "RGB"
+    else:
+        mode = "I;16" if image.dtype == np.uint16 else "L"
+    return image, mode, int(header[24])
+
 
 
 def audit_images(rows: list[dict], project_root: Path, calibration: dict,
@@ -154,7 +162,6 @@ def audit_images(rows: list[dict], project_root: Path, calibration: dict,
             raise ValueError(f"Non-opaque RGB alpha for {row['plant_id']}")
         if depth.shape != (height, width) or depth_bits != 16:
             raise ValueError(f"Unexpected depth format for {row['plant_id']}")
-        # Some Pillow releases expose 16-bit PNG as int32; this cast is lossless.
         if not np.issubdtype(depth.dtype, np.integer) or depth.min() < 0 or depth.max() > 65535:
             raise ValueError(f"Invalid depth values for {row['plant_id']}")
         depth = depth.astype(np.uint16, copy=False)
@@ -224,3 +231,28 @@ def load_development_manifest(project_root: Path) -> list[dict]:
         for target in TARGET_NAMES:
             row[target] = float(row[target]) if row[target] else float("nan")
     return result
+
+
+def load_fold_dataframes(project_root: Path, fold: int) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Return development-only train/validation tables for a saved fold.
+
+    Targets may contain NaN; images are loaded later from the path columns.
+    Holdout IDs never enter either table.
+    """
+    if isinstance(fold, bool) or not isinstance(fold, int) or fold not in range(5):
+        raise ValueError("fold must be an integer from 0 through 4")
+    development = pd.DataFrame(load_development_manifest(project_root))
+    folds = pd.read_csv(project_root / "splits/cv_folds.csv", dtype={"plant_id": str, "variety": str})
+    if folds["plant_id"].duplicated().any():
+        raise ValueError("Duplicate development ID in folds")
+    joined = development.merge(folds, on=["plant_id", "variety"], validate="one_to_one", how="inner")
+    if len(joined) != len(development) or len(joined) != len(folds):
+        raise ValueError("Development and fold IDs/varieties do not match")
+    holdout = set(pd.read_csv(project_root / "splits/holdout.csv")["plant_id"])
+    if set(joined["plant_id"]) & holdout:
+        raise ValueError("Holdout plant found in development")
+    train = joined.loc[joined["fold"] != fold].copy().reset_index(drop=True)
+    validation = joined.loc[joined["fold"] == fold].copy().reset_index(drop=True)
+    if train.empty or validation.empty:
+        raise ValueError("Empty train or validation fold")
+    return train, validation

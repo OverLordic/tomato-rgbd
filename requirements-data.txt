@@ -1,6 +1,7 @@
 # Exact versions tested for data preparation with Python 3.12.
 numpy==2.3.5
-Pillow==13.0.0
+opencv-python-headless==4.14.0.94
+pandas==3.1.1
 scikit-learn==1.9.1
 scipy==1.18.1
 joblib==1.6.0
