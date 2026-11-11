@@ -1,0 +1,150 @@
+{
+  "baseline_geometry": {
+    "A": {
+      "n": 39,
+      "mean": 1.6094561824544886,
+      "per_target": {
+        "height": 0.13154729334989512,
+        "fw_plant": 2.0369679576199187,
+        "leaf_area": 2.836545585304273,
+        "number_of_red_fruits": 1.432763893543868
+      },
+      "n_valid": {
+        "height": 39,
+        "fw_plant": 39,
+        "leaf_area": 39,
+        "number_of_red_fruits": 39
+      },
+      "fruit_mae_zero": 1.0526376364618202,
+      "fruit_mae_positive": null
+    },
+    "B": {
+      "n": 115,
+      "mean": 1.7464360189752206,
+      "per_target": {
+        "height": 0.2630217922300287,
+        "fw_plant": 0.8642082369777152,
+        "leaf_area": 0.5289085853282388,
+        "number_of_red_fruits": 5.3296054613649
+      },
+      "n_valid": {
+        "height": 114,
+        "fw_plant": 115,
+        "leaf_area": 114,
+        "number_of_red_fruits": 115
+      },
+      "fruit_mae_zero": 5.070426331237452,
+      "fruit_mae_positive": 8.798108585846453
+    },
+    "C": {
+      "n": 114,
+      "mean": 3.5996399154885284,
+      "per_target": {
+        "height": 0.1502600416281886,
+        "fw_plant": 5.136126236769667,
+        "leaf_area": 1.499112740662247,
+        "number_of_red_fruits": 7.61306064289401
+      },
+      "n_valid": {
+        "height": 114,
+        "fw_plant": 113,
+        "leaf_area": 114,
+        "number_of_red_fruits": 114
+      },
+      "fruit_mae_zero": 7.191148371909219,
+      "fruit_mae_positive": 5.98781445549715
+    },
+    "D": {
+      "n": 115,
+      "mean": 1.8851153990643277,
+      "per_target": {
+        "height": 0.15041100423170362,
+        "fw_plant": 2.287003100040148,
+        "leaf_area": 0.30810524025820235,
+        "number_of_red_fruits": 4.794942251727257
+      },
+      "n_valid": {
+        "height": 115,
+        "fw_plant": 115,
+        "leaf_area": 115,
+        "number_of_red_fruits": 115
+      },
+      "fruit_mae_zero": 3.7203914639436753,
+      "fruit_mae_positive": 13.747242052529941
+    }
+  },
+  "resnet18_rgb": {
+    "A": {
+      "n": 39,
+      "mean": 0.5482194580618767,
+      "per_target": {
+        "height": 0.10768376270325952,
+        "fw_plant": 0.35502341376439467,
+        "leaf_area": 1.7070453087290716,
+        "number_of_red_fruits": 0.02312534705078081
+      },
+      "n_valid": {
+        "height": 39,
+        "fw_plant": 39,
+        "leaf_area": 39,
+        "number_of_red_fruits": 39
+      },
+      "fruit_mae_zero": 0.008798845757085543,
+      "fruit_mae_positive": null
+    },
+    "B": {
+      "n": 115,
+      "mean": 0.4388740788934601,
+      "per_target": {
+        "height": 0.379106870384361,
+        "fw_plant": 0.48525247389614173,
+        "leaf_area": 0.41003038427690924,
+        "number_of_red_fruits": 0.4811065870164283
+      },
+      "n_valid": {
+        "height": 114,
+        "fw_plant": 115,
+        "leaf_area": 114,
+        "number_of_red_fruits": 115
+      },
+      "fruit_mae_zero": 0.2501250257256389,
+      "fruit_mae_positive": 13.43804183117179
+    },
+    "C": {
+      "n": 114,
+      "mean": 0.7195856233684959,
+      "per_target": {
+        "height": 0.17712720249524372,
+        "fw_plant": 1.142847102469331,
+        "leaf_area": 0.5342658976534568,
+        "number_of_red_fruits": 1.0241022908559516
+      },
+      "n_valid": {
+        "height": 114,
+        "fw_plant": 113,
+        "leaf_area": 114,
+        "number_of_red_fruits": 114
+      },
+      "fruit_mae_zero": 0.8083065404858453,
+      "fruit_mae_positive": 3.97543918459039
+    },
+    "D": {
+      "n": 115,
+      "mean": 0.3270969214413164,
+      "per_target": {
+        "height": 0.20324147268336387,
+        "fw_plant": 0.31793900117315693,
+        "leaf_area": 0.2171406226963632,
+        "number_of_red_fruits": 0.5700665892123817
+      },
+      "n_valid": {
+        "height": 115,
+        "fw_plant": 115,
+        "leaf_area": 115,
+        "number_of_red_fruits": 115
+      },
+      "fruit_mae_zero": 0.46355842769145966,
+      "fruit_mae_positive": 17.159053361415864
+    }
+  }
+}
