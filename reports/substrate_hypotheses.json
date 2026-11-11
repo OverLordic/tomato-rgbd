@@ -1,0 +1,63 @@
+{
+  "plant_id": "A_04ade032",
+  "regions": {
+    "soil_1": {
+      "valid_fraction": 0.6588888888888889,
+      "n_valid": 593,
+      "above_tray_median_cm": 28.626088815031757,
+      "q10_cm": 28.421996144172883,
+      "q90_cm": 37.83322159289504
+    },
+    "soil_2": {
+      "valid_fraction": 0.6266666666666667,
+      "n_valid": 564,
+      "above_tray_median_cm": 26.98156016397474,
+      "q10_cm": 26.775805884595908,
+      "q90_cm": 27.578842637358758
+    },
+    "soil_3": {
+      "valid_fraction": 0.08444444444444445,
+      "n_valid": 76,
+      "above_tray_median_cm": 37.90104679171327,
+      "q10_cm": 36.80017294033542,
+      "q90_cm": 38.60142724816551
+    },
+    "rim_1": {
+      "valid_fraction": 0.57,
+      "n_valid": 342,
+      "above_tray_median_cm": 28.61072449782797,
+      "q10_cm": 28.413693078676236,
+      "q90_cm": 28.813222517916078
+    },
+    "rim_2": {
+      "valid_fraction": 0.44875,
+      "n_valid": 359,
+      "above_tray_median_cm": 28.1623000940641,
+      "q10_cm": 27.865170246194374,
+      "q90_cm": 28.462498550970068
+    }
+  },
+  "manual_height_cm": 30.0,
+  "q99_above_tray_cm": 38.72517467189328,
+  "hypotheses": {
+    "tray": {
+      "n": 292,
+      "mae_cm": 9.633999143270204,
+      "bias_cm": 9.21070127554245,
+      "rmsre": 0.34242732166621465
+    },
+    "rim_10_B7": {
+      "n": 292,
+      "mae_cm": 2.649174728518105,
+      "bias_cm": -0.14380233821450286,
+      "rmsre": 0.12581770454490818
+    },
+    "rim_minus2_B7": {
+      "n": 292,
+      "mae_cm": 2.878741751301338,
+      "bias_cm": 1.4383894426074153,
+      "rmsre": 0.1303128974087797
+    }
+  },
+  "warning": "Exploratory development subset; no independent substrate calibration; holdout not evaluated"
+}
