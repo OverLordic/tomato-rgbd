@@ -1,0 +1,46 @@
+{
+  "A_04ade032": {
+    "plane_ok": 1,
+    "plane_inlier_fraction": 0.8333890374331551,
+    "plane_coverage": 17,
+    "plane_residual_mm": 2.1743584209938938,
+    "projected_area_cm2": 152.0,
+    "height_q95_cm": 38.39465729911565,
+    "height_q99_cm": 38.72517467189328,
+    "envelope_volume_cm3": 4876.150438455866,
+    "plant_valid_fraction": 0.6403686221622836
+  },
+  "B_0328ab97": {
+    "plane_ok": 0,
+    "plane_inlier_fraction": null,
+    "plane_coverage": null,
+    "plane_residual_mm": null,
+    "projected_area_cm2": null,
+    "height_q95_cm": null,
+    "height_q99_cm": null,
+    "envelope_volume_cm3": null,
+    "plant_valid_fraction": 0.801717774944642
+  },
+  "C_07c66fd4": {
+    "plane_ok": 0,
+    "plane_inlier_fraction": null,
+    "plane_coverage": null,
+    "plane_residual_mm": null,
+    "projected_area_cm2": null,
+    "height_q95_cm": null,
+    "height_q99_cm": null,
+    "envelope_volume_cm3": null,
+    "plant_valid_fraction": 1.0
+  },
+  "D_028f38e4": {
+    "plane_ok": 1,
+    "plane_inlier_fraction": 0.6613488034807832,
+    "plane_coverage": 18,
+    "plane_residual_mm": 2.0146313900155643,
+    "projected_area_cm2": 355.25,
+    "height_q95_cm": 36.66258141319283,
+    "height_q99_cm": 37.12063603945989,
+    "envelope_volume_cm3": 9864.31906241843,
+    "plant_valid_fraction": 0.8264443672571494
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "scope": "development only; same saved folds; no holdout",
+  "scores": {
+    "baseline": {
+      "mean": 1.4545665503618286,
+      "per_target": {
+        "height": 0.18288335093454236,
+        "fw_plant": 1.1898487033299028,
+        "leaf_area": 0.6384180278156348,
+        "number_of_red_fruits": 3.807116119367234
+      }
+    },
+    "baseline_geometry": {
+      "mean": 1.1956955862394212,
+      "per_target": {
+        "height": 0.15039106046675274,
+        "fw_plant": 1.0398136422506719,
+        "leaf_area": 0.6824253656436792,
+        "number_of_red_fruits": 2.9101522765965813
+      }
+    }
+  },
+  "plane_valid": 296,
+  "total": 383,
+  "median_plane_coverage_blocks": 20.0,
+  "limitations": [
+    "Color mask and plane are imperfect",
+    "Projection includes visible segmented pixels only",
+    "Height is above tray, not substrate",
+    "Envelope is not tissue volume"
+  ]
+}
