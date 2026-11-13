@@ -25,7 +25,11 @@ class ExtractionTests(unittest.TestCase):
             z.writestr("single_plant_cam/train/sample.txt", "sample")
         out = extract_archive(self.archive, self.raw, self.receipt)
         self.assertEqual((out / "train/sample.txt").read_text(), "sample")
-        self.assertTrue(json.loads((self.raw / "extraction_receipt.json").read_text())["zip_crc_checked"])
+        self.assertTrue(
+            json.loads((self.raw / "extraction_receipt.json").read_text())[
+                "zip_crc_checked"
+            ]
+        )
         self.assertEqual(extract_archive(self.archive, self.raw, self.receipt), out)
 
     def test_parent_path_cannot_escape_raw_directory(self):
@@ -58,7 +62,9 @@ class ExtractionTests(unittest.TestCase):
         with zipfile.ZipFile(self.archive, "w", compression=zipfile.ZIP_STORED) as z:
             z.writestr("single_plant_cam/value.txt", b"unique-content-123")
         content = self.archive.read_bytes()
-        self.archive.write_bytes(content.replace(b"unique-content-123", b"unique-content-124"))
+        self.archive.write_bytes(
+            content.replace(b"unique-content-123", b"unique-content-124")
+        )
         with self.assertRaises(zipfile.BadZipFile):
             extract_archive(self.archive, self.raw, self.receipt)
         self.assertFalse((self.raw / "single_plant_cam").exists())

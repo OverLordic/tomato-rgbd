@@ -14,15 +14,29 @@ class SplitTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        self.rows = [{"plant_id": f"{v}_{i:08x}", "variety": v, "height": object()}
-                     for v, n in {"A": 48, "B": 144, "C": 143, "D": 144}.items()
-                     for i in range(n)]
-        self.protocol = {"seed": 42, "holdout": {"fraction": .2, "stratify_by": "variety"},
-                         "cross_validation": {"n_splits": 5, "shuffle": True, "stratify_by": "variety"}}
+        self.rows = [
+            {"plant_id": f"{v}_{i:08x}", "variety": v, "height": object()}
+            for v, n in {"A": 48, "B": 144, "C": 143, "D": 144}.items()
+            for i in range(n)
+        ]
+        self.protocol = {
+            "seed": 42,
+            "holdout": {"fraction": 0.2, "stratify_by": "variety"},
+            "cross_validation": {
+                "n_splits": 5,
+                "shuffle": True,
+                "stratify_by": "variety",
+            },
+        }
 
     def freeze(self, directory=None, **overrides):
-        args = {"rows": self.rows, "directory": directory or self.root,
-                "manifest_sha": "manifest-sha", "images_sha": "images-sha", "protocol": self.protocol}
+        args = {
+            "rows": self.rows,
+            "directory": directory or self.root,
+            "manifest_sha": "manifest-sha",
+            "images_sha": "images-sha",
+            "protocol": self.protocol,
+        }
         args.update(overrides)
         return freeze_splits(**args)
 
@@ -39,20 +53,25 @@ class SplitTests(unittest.TestCase):
             self.assertEqual(len(train | val | test), 479)
         for v in "ABCD":
             actual = sum(r["variety"] == v for r in holdout)
-            expected = .2 * sum(r["variety"] == v for r in self.rows)
+            expected = 0.2 * sum(r["variety"] == v for r in self.rows)
             self.assertLessEqual(abs(actual - expected), 1)
 
     def test_input_order_does_not_change_saved_ids(self):
         self.freeze(self.root / "one")
         self.freeze(self.root / "two", rows=list(reversed(self.rows)))
         for name in ("holdout.csv", "cv_folds.csv"):
-            self.assertEqual((self.root / "one" / name).read_bytes(),
-                             (self.root / "two" / name).read_bytes())
+            self.assertEqual(
+                (self.root / "one" / name).read_bytes(),
+                (self.root / "two" / name).read_bytes(),
+            )
 
     def test_saved_ids_are_reused_without_calling_random_split(self):
         self.freeze()
         before = {p.name: p.read_bytes() for p in self.root.iterdir()}
-        with patch("tomato_rgbd.splits.train_test_split", side_effect=AssertionError("must reuse")):
+        with patch(
+            "tomato_rgbd.splits.train_test_split",
+            side_effect=AssertionError("must reuse"),
+        ):
             self.freeze()
         self.assertEqual(before, {p.name: p.read_bytes() for p in self.root.iterdir()})
 

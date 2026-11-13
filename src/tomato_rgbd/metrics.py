@@ -1,7 +1,7 @@
 """Official WUR score: mean of four per-target RMSRE values.
 
 Source: docs/sources/Autonomous_greenhouse_challenge_technical_document.pdf,
-section 4, page 7. See docs/learning/02-rmsre.md for a worked explanation.
+section 4, page 7
 """
 
 from collections.abc import Mapping

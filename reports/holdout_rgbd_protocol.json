@@ -1,0 +1,34 @@
+{
+  "model": "ResNet18 RGB-D",
+  "prediction": "mean of five fold predictions after expm1 and clamp(0,12)",
+  "image_size": 320,
+  "crop": false,
+  "depth": "uint16 millimetres / 2000; nearest resize; zero invalid",
+  "checkpoints": [
+    {
+      "file": "checkpoints/rgbd_resnet18/fold_0.pt",
+      "sha256": "a7f1c156ed0415dbe93d77b17cf8359084a9d53b790cfd0df167397fc6c65bca",
+      "epoch": 4
+    },
+    {
+      "file": "checkpoints/rgbd_resnet18/fold_1.pt",
+      "sha256": "e80f72306d79b5fc98020d33fb1b89f7d27ae1cf6a443c3a19eb3edaee885caf",
+      "epoch": 8
+    },
+    {
+      "file": "checkpoints/rgbd_resnet18/fold_2.pt",
+      "sha256": "58f8ab158c4503148b587893d914763f004e163bbf26b04cebd7b0ddb8873cd7",
+      "epoch": 18
+    },
+    {
+      "file": "checkpoints/rgbd_resnet18/fold_3.pt",
+      "sha256": "4a4d8dccbb33f3979ed48831098eb8ad47ece8a64ff2ad1a861443c5ebc991c3",
+      "epoch": 7
+    },
+    {
+      "file": "checkpoints/rgbd_resnet18/fold_4.pt",
+      "sha256": "f2e3170f0aa410f1722c879cd771809726935ce51420b9b593a5a02e640cd956",
+      "epoch": 12
+    }
+  ]
+}

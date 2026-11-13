@@ -9,8 +9,16 @@ import unittest
 import numpy as np
 import cv2
 
-from tomato_rgbd.data import (MANIFEST_COLUMNS, SUBSETS, audit_images, build_manifest,
-                              load_development_manifest, read_csv, read_json, write_csv)
+from tomato_rgbd.data import (
+    MANIFEST_COLUMNS,
+    SUBSETS,
+    audit_images,
+    build_manifest,
+    load_development_manifest,
+    read_csv,
+    read_json,
+    write_csv,
+)
 from tomato_rgbd.splits import image_fingerprint
 
 
@@ -29,14 +37,25 @@ class DataTests(unittest.TestCase):
             for offset in range(2):
                 n = subset_index * 2 + offset + 1
                 plant_id = f"{'AB'[offset]}_{n:08x}"
-                truth[plant_id] = {"height": 20., "fw_plant": 100., "leaf_area": 500., "number_of_red_fruits": 0.}
+                truth[plant_id] = {
+                    "height": 20.0,
+                    "fw_plant": 100.0,
+                    "leaf_area": 500.0,
+                    "number_of_red_fruits": 0.0,
+                }
                 names[plant_id] = f"camir_27_2023_11_23_11_23_{n:02d}_nc6l{n}_rgb"
-                cv2.imwrite(str(folder / "rgb" / f"{plant_id}.png"), np.full((6, 8, 3), n, dtype=np.uint8))
+                cv2.imwrite(
+                    str(folder / "rgb" / f"{plant_id}.png"),
+                    np.full((6, 8, 3), n, dtype=np.uint8),
+                )
                 depth = np.full((6, 8), 650 + n, dtype=np.uint16)
                 depth[0, 0] = 0
                 cv2.imwrite(str(folder / "depth" / f"{plant_id}_depth.png"), depth)
                 for side in ("L", "R"):
-                    cv2.imwrite(str(folder / "depth" / f"{plant_id}_ir{side}.png"), np.full((3, 4), n, dtype=np.uint8))
+                    cv2.imwrite(
+                        str(folder / "depth" / f"{plant_id}_ir{side}.png"),
+                        np.full((3, 4), n, dtype=np.uint8),
+                    )
             (folder / f"ground_truth_{subset}.json").write_text(json.dumps(truth))
             (folder / f"anon_keys_{subset}.json").write_text(json.dumps(names))
 
@@ -57,7 +76,10 @@ class DataTests(unittest.TestCase):
             self.manifest()
 
     def test_orphan_image_is_detected(self):
-        cv2.imwrite(str(self.dataset / "train/rgb/orphan.png"), np.zeros((6, 8, 3), dtype=np.uint8))
+        cv2.imwrite(
+            str(self.dataset / "train/rgb/orphan.png"),
+            np.zeros((6, 8, 3), dtype=np.uint8),
+        )
         with self.assertRaisesRegex(ValueError, "Orphan RGB"):
             self.manifest()
 
@@ -93,17 +115,21 @@ class DataTests(unittest.TestCase):
         self.assertEqual(audit[0]["depth_dtype"], "uint16")
         self.assertEqual(audit[0]["depth_png_bits"], 16)
         self.assertAlmostEqual(audit[0]["zero_depth_fraction"], 1 / 48)
-        self.assertAlmostEqual(audit[0]["sample_depth_median_m"], .651)
+        self.assertAlmostEqual(audit[0]["sample_depth_median_m"], 0.651)
 
     def test_exact_duplicate_rgb_is_detected_before_splitting(self):
         rows = self.manifest()
-        (self.root / rows[1]["rgb_path"]).write_bytes((self.root / rows[0]["rgb_path"]).read_bytes())
+        (self.root / rows[1]["rgb_path"]).write_bytes(
+            (self.root / rows[0]["rgb_path"]).read_bytes()
+        )
         with self.assertRaisesRegex(ValueError, "duplicate RGB"):
             audit_images(rows, self.root, self.calibration, progress=None)
 
     def test_wrong_depth_shape_is_rejected(self):
         rows = self.manifest()
-        cv2.imwrite(str(self.root / rows[0]["depth_path"]), np.zeros((2, 3), dtype=np.uint16))
+        cv2.imwrite(
+            str(self.root / rows[0]["depth_path"]), np.zeros((2, 3), dtype=np.uint16)
+        )
         with self.assertRaisesRegex(ValueError, "depth format"):
             audit_images(rows, self.root, self.calibration, progress=None)
 
@@ -118,9 +144,17 @@ class DataTests(unittest.TestCase):
     def test_training_loader_excludes_holdout_and_restores_numbers(self):
         rows = self.manifest()
         write_csv(self.root / "data/processed/manifest.csv", rows, MANIFEST_COLUMNS)
-        write_csv(self.root / "splits/cv_folds.csv",
-                  [{"plant_id": rows[0]["plant_id"], "variety": rows[0]["variety"], "fold": 0}],
-                  ("plant_id", "variety", "fold"))
+        write_csv(
+            self.root / "splits/cv_folds.csv",
+            [
+                {
+                    "plant_id": rows[0]["plant_id"],
+                    "variety": rows[0]["variety"],
+                    "fold": 0,
+                }
+            ],
+            ("plant_id", "variety", "fold"),
+        )
         loaded = load_development_manifest(self.root)
         self.assertEqual([r["plant_id"] for r in loaded], [rows[0]["plant_id"]])
         self.assertIsInstance(loaded[0]["height"], float)

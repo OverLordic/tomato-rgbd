@@ -88,6 +88,7 @@
     "holdout.csv": "c3a04d5928c98d3f0f641cb995f248cf5561129f07af195ef946070d19e1cdc0",
     "cv_folds.csv": "b25b4a5d801a45e0f40c74c49f70793ca5120ca27236fb676384c14ff21b9043"
   },
-  "holdout_evaluations": 0,
-  "note": "Only integrity checks apply to all files; target distributions and visual analysis use development only."
+  "holdout_evaluations": 1,
+  "note": "Development used for model selection; final RGB-D ensemble evaluated once on 96 holdout plants; no post-holdout model tuning",
+  "final_evaluation": "reports/holdout_rgbd_scores.json"
 }

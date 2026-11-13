@@ -20,9 +20,22 @@ def download_archive(path: Path) -> None:
     if path.exists() and path.stat().st_size == ARCHIVE_SIZE:
         return
     subprocess.run(
-        ["curl", "--fail", "--location", "--show-error", "--progress-bar",
-         "--retry", "5", "--retry-delay", "3", "--continue-at", "-",
-         "--output", str(path), URL],
+        [
+            "curl",
+            "--fail",
+            "--location",
+            "--show-error",
+            "--progress-bar",
+            "--retry",
+            "5",
+            "--retry-delay",
+            "3",
+            "--continue-at",
+            "-",
+            "--output",
+            str(path),
+            URL,
+        ],
         check=True,
     )
 
@@ -38,8 +51,13 @@ def verify_archive(path: Path) -> dict:
             sha256.update(block)
     if md5.hexdigest() != OFFICIAL_MD5:
         raise ValueError(f"Archive MD5 differs from 4TU: {md5.hexdigest()}")
-    return {"bytes": path.stat().st_size, "md5": md5.hexdigest(),
-            "sha256": sha256.hexdigest(), "url": URL, "publisher_md5_matched": True}
+    return {
+        "bytes": path.stat().st_size,
+        "md5": md5.hexdigest(),
+        "sha256": sha256.hexdigest(),
+        "url": URL,
+        "publisher_md5_matched": True,
+    }
 
 
 def extract_archive(path: Path, raw_dir: Path, receipt: dict) -> Path:
@@ -54,27 +72,44 @@ def extract_archive(path: Path, raw_dir: Path, receipt: dict) -> Path:
         members = archive.infolist()
         for member in members:
             name = Path(member.filename)
-            if (name.is_absolute() or ".." in name.parts or not name.parts
-                    or name.parts[0] != "single_plant_cam"
-                    or stat.S_ISLNK(member.external_attr >> 16)):
+            if (
+                name.is_absolute()
+                or ".." in name.parts
+                or not name.parts
+                or name.parts[0] != "single_plant_cam"
+                or stat.S_ISLNK(member.external_attr >> 16)
+            ):
                 raise ValueError(f"Unexpected ZIP member: {member.filename}")
         if destination.exists():
-            if not marker.exists() or json.loads(marker.read_text())["sha256"] != receipt["sha256"]:
+            if (
+                not marker.exists()
+                or json.loads(marker.read_text())["sha256"] != receipt["sha256"]
+            ):
                 raise ValueError("Existing extraction has no matching archive receipt")
             for member in members:
                 if not member.is_dir():
                     target = raw_dir / member.filename
-                    if not target.is_file() or target.stat().st_size != member.file_size:
-                        raise ValueError(f"Incomplete extracted file: {member.filename}")
+                    if (
+                        not target.is_file()
+                        or target.stat().st_size != member.file_size
+                    ):
+                        raise ValueError(
+                            f"Incomplete extracted file: {member.filename}"
+                        )
             return destination
 
         staging = Path(tempfile.mkdtemp(prefix=".extract-", dir=raw_dir))
         try:
-            # ZipFile validates each member's CRC while its contents are read.
+            # ZipFile validates each member's CRC while its contents are read
             archive.extractall(staging)
             (staging / "single_plant_cam").replace(destination)
-            marker.write_text(json.dumps({**receipt, "zip_members": len(members),
-                                          "zip_crc_checked": True}, indent=2) + "\n")
+            marker.write_text(
+                json.dumps(
+                    {**receipt, "zip_members": len(members), "zip_crc_checked": True},
+                    indent=2,
+                )
+                + "\n"
+            )
         finally:
             shutil.rmtree(staging)
     return destination

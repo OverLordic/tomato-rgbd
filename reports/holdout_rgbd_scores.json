@@ -1,0 +1,28 @@
+{
+  "scope": "final holdout; 96 plants; one evaluation; no fitting",
+  "n_plants": 96,
+  "mean": 0.1846816111466773,
+  "per_target": {
+    "height": 0.12558656188908593,
+    "fw_plant": 0.2388787394960813,
+    "leaf_area": 0.19108780576267945,
+    "number_of_red_fruits": 0.1831733374388626
+  },
+  "n_valid": {
+    "height": 96,
+    "fw_plant": 96,
+    "leaf_area": 96,
+    "number_of_red_fruits": 96
+  },
+  "mae": {
+    "height": 3.494525372982025,
+    "fw_plant": 32.15641493837038,
+    "leaf_area": 166.36360104242962,
+    "number_of_red_fruits": 1.2646645977923374
+  },
+  "positive_fruit_plants": 23,
+  "positive_fruit_mae": 5.228183849998143,
+  "device": "mps",
+  "torch": "2.15.0",
+  "protocol": "holdout_rgbd_protocol.json"
+}

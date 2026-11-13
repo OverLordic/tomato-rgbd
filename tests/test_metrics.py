@@ -18,7 +18,9 @@ class RMSRETests(unittest.TestCase):
         pred = truth.copy()
         pred[:, 3] = [1, 5]
         result = rmsre(truth, pred)
-        self.assertAlmostEqual(result.per_target["number_of_red_fruits"], np.sqrt(0.625))
+        self.assertAlmostEqual(
+            result.per_target["number_of_red_fruits"], np.sqrt(0.625)
+        )
         self.assertAlmostEqual(result.mean, np.sqrt(0.625) / 4)
 
     def test_macro_mean_is_not_pooled_root(self):
@@ -43,7 +45,7 @@ class RMSRETests(unittest.TestCase):
         truth = rng.uniform(0, 100, size=(19, 4))
         pred = truth + rng.normal(0, 10, size=truth.shape)
         truth[::3, 2] = np.nan
-        # Same calculation order as the official PDF's dictionary example.
+        # Same calculation order as the official PDF's dictionary example
         expected = 0
         for column in range(4):
             diff = [
